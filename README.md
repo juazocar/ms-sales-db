@@ -32,3 +32,14 @@ CREATE TABLE `ecommerce`.`sales_detail` (
   REFERENCES `ecommerce`.`sales` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION);
+
+
+INSERT INTO `ecommerce`.`product` (`name`, `price`) VALUES ('producto 1', '150000');
+INSERT INTO `ecommerce`.`product` (`name`, `price`) VALUES ('productos 2', '10000');
+
+INSERT INTO `ecommerce`.`sales` (`amount`, `sales_date`, `customer_id`) VALUES ('250000', '26-05-2025', '1');
+INSERT INTO `ecommerce`.`sales` (`amount`, `sales_date`, `customer_id`) VALUES ('500000', '26-05-2025', '1');
+
+INSERT INTO `ecommerce`.`sales_detail` (`id`, `product_id`, `quantity`, `sales_id`) VALUES ('1', '1', '1', '1');
+INSERT INTO `ecommerce`.`sales_detail` (`id`, `product_id`, `quantity`, `sales_id`) VALUES ('2', '1', '2', '1');
+INSERT INTO `ecommerce`.`sales_detail` (`id`, `product_id`, `quantity`, `sales_id`) VALUES ('3', '2', '3', '2');
