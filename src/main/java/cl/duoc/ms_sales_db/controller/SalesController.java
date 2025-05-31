@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cl.duoc.ms_sales_db.model.dto.SalesDTO;
 import cl.duoc.ms_sales_db.service.SalesService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
 @RequestMapping("/api/sales")
+@CrossOrigin("*")
 public class SalesController {
 
     @Autowired
