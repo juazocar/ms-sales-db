@@ -1,6 +1,8 @@
 package cl.duoc.ms_sales_db.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +42,45 @@ public class SalesService {
 
     }
 
-      public SalesDTO translateEntityToDto(Sales sale){
+    public SalesDTO createSale(SalesDTO salesDTO){
+        Sales sales = translateDtoToEntity(salesDTO);
+        Sales newSales = salesRepository.save(sales);
+
+        for(SalesDetailDTO salesDetailDTO: salesDTO.getSalesDetailDtoList()){
+            SalesDetail salesDetail = new SalesDetail();
+            salesDetail.setProductId(salesDetailDTO.getProduct().getId());
+            salesDetail.setQuantity(salesDetailDTO.getQuantity());
+            salesDetail.setSalesId(newSales.getId());
+            salesDetailRepository.save(salesDetail);
+        }
+
+        SalesDTO newSalesDTO = null;
+
+        if(newSales != null){
+            newSalesDTO = translateEntityToDto(newSales);
+
+            List<SalesDetail> salesDetailList = salesDetailRepository.findBySalesId(newSales.getId());
+            newSalesDTO.setSalesDetailDtoList(translateListEntityToDto(salesDetailList));
+        }
+
+        return newSalesDTO;
+    }
+
+
+
+
+    public Sales translateDtoToEntity(SalesDTO salesDTO){
+        Sales sales = new Sales();
+        sales.setAmount(salesDTO.getAmount());
+        sales.setCustomerId(salesDTO.getCustomerId());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sales.setSalesDate(format.format(new Date()));
+        return sales;
+    }
+
+
+
+    public SalesDTO translateEntityToDto(Sales sale){
         SalesDTO salesDto = new SalesDTO();
         salesDto.setId(sale.getId());
         salesDto.setAmount(sale.getAmount());

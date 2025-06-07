@@ -12,6 +12,9 @@ import cl.duoc.ms_sales_db.service.SalesService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -28,6 +31,15 @@ public class SalesController {
         return (salesDTO != null)?  new ResponseEntity<>(salesDTO, HttpStatus.OK) :
                                      new ResponseEntity<>(HttpStatus.NOT_FOUND); 
     }
+
+    @PostMapping("")
+    public ResponseEntity<SalesDTO> postMethodName(@RequestBody SalesDTO salesDTO) {
+        //TODO: process POST request
+        SalesDTO newSalesDTO = salesService.createSale(salesDTO);
+       return (newSalesDTO != null)?  new ResponseEntity<>(newSalesDTO, HttpStatus.OK) :
+                                     new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+    }
+    
     
 
 }
